@@ -1,0 +1,79 @@
+#This program converts the entered roman number to a normal number(base 10)
+def roman_to_normal(a):
+    a=a.upper()
+    count=0
+    flag=1
+    if 'V' in a:
+        count+=5
+    if 'IV' in a:
+        count-=1
+    if 'XL' in a:
+        flag=0
+        count+=40
+        if 'IX' in a:
+            count+=9
+    elif 'L' in a:
+        count+=50
+        flag=0
+        if 'X' in a:
+            n=0
+            for x in a:
+                if x=='X':
+                    n+=1
+            count+=n*10
+        if 'IX' in a:
+            count-=1
+    elif 'XC' not in a:
+        flag=0
+        if 'X' in a:
+            n=0
+            for x in a:
+                if x=='X':
+                    n+=1
+            count+=n*10
+        if 'IX' in a:
+            count-=1
+    
+    if 'III' in a:
+        count+=3
+    elif 'II' in a:
+        count+=2
+    elif a[len(a)-1]=='I':
+        count+=1
+
+    if 'CD' in a:
+        
+        count+=400
+        if 'XC' in a:
+            count+=90
+        if flag!=0:
+            if 'IX' in a:
+                count+=9
+    elif 'C' in a:
+        n=0
+        for x in a:
+            if x=='C':
+                n+=1
+        count+=n*100
+        f=1
+        
+        if 'XC' in a:
+            count-=10
+        if flag!=0:
+            if 'IX' in a:
+                count+=9
+        
+    if 'D' and 'CD' in a:
+        count+=0
+    elif 'D' in a:
+        count+=500
+    if 'CM' in a:
+        count+=800
+    elif 'M' in a:
+        
+        count+=1000
+    
+    return count
+a=str(input("Enter a Roman Number:"))
+b=roman_to_normal(a)
+print(b)
