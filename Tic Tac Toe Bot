@@ -1,0 +1,264 @@
+#Making Tic Tac Toe playing bot:
+import random as random
+p=1
+while p!=0:
+    r1,r2,r3,c1,c2,c3,d1,d2=[[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]]
+    l2=[r1,r2,r3,c1,c2,c3,d1,d2]
+    board=[[0,0,0],[0,0,0],[0,0,0]]
+    for i in range(3):
+            for j in range(3):
+                if board[i][j]==0:
+                    print(str(i+1)+','+str(j+1), end='  |  ')
+                else:
+                    print(str(board[i][j]), end='  |  ')
+            print('\n')
+    r=[1,2,3]
+    def put(a,b):
+        board[a-1][b-1]='X'
+    def cput(a,b):
+        board[a-1][b-1]='O'
+    def app(u1,u2,x):
+        if u1==1 and u2==1:
+            r1.append(x)
+            c1.append(x)
+            d1.append(x)
+        elif u1==1 and u2==2:
+            r1.append(x)
+            c2.append(x)
+        elif u1==1 and u2==3:
+            r1.append(x)
+            c3.append(x)
+            d2.append(x)
+        elif u1==2 and u2==1:
+            r2.append(x)
+            c1.append(x)
+        elif u1==2 and u2==2:
+            d1.append(x)
+            d2.append(x)
+            r2.append(x)
+            c2.append(x)
+        elif u1==2 and u2==3:
+            r2.append(x)
+            c3.append(x)
+        elif u1==3 and u2==1:
+            r3.append(x)
+            c1.append(x)
+            d2.append(x)
+        elif u1==3 and u2==2:
+            r3.append(x)
+            c2.append(x)
+        elif u1==3 and u2==3:
+            r3.append(x)
+            c3.append(x)
+            d1.append(x)
+    def display():
+        for i in range(3):
+            for j in range(3):
+                if board[i][j]==0:
+                    print(" ", end='  |  ')
+                else:
+                    print(str(board[i][j]), end='  |  ')
+            print('\n')
+    def boardz():
+        k=0
+        for i in range(3):
+            for j in range(3):
+                if board[i][j]==0:
+                    k+=1
+        return k
+    sum=0
+    w=0
+    def xsum(l):
+        s=0
+        for i in l:
+            s+=i
+        return s
+
+    def wincheck():
+        a=-1
+        uwin=0
+        cwin=0
+        l2=[r1,r2,r3,c1,c2,c3,d1,d2]
+        for i in l2:
+            a+=1
+            if xsum(i)==30:
+                uwin=1
+                cwin=0
+                break
+            elif xsum(i)==3:
+                uwin=0
+                cwin=1
+                break
+            elif xsum(i)==2 and xsum(i)!=12:
+                
+                for j in l2:
+                    
+                    if xsum(j)==30:
+                        uwin=0
+                        cwin=1
+                    elif xsum(j)==3:
+                        uwin=0
+                        cwin=1
+                    else:
+                        uwin=a-10
+                        cwin=0
+                break
+            elif xsum(i)==20 and xsum(i)!=21:
+                b=-1
+                for j in l2:
+                    b+=1
+                    if xsum(j)==3:
+                        uwin=0
+                        cwin=1
+                    elif xsum(j)==30:
+                        uwin=0
+                        cwin=1
+                    elif xsum(j)==2 and xsum(j)!=12:
+                        uwin=b-10
+                        cwin=0
+                    else:
+                        uwin=4+a
+                        cwin=0
+                break
+        w=uwin-cwin
+        for j in l2:
+            if xsum(j)==3:
+                w=-1
+            elif xsum(j)==30:
+                w=1
+        return w
+
+    flag=0
+    while sum<9 and flag!=1:
+        ff=0
+        while ff==0:
+            u1=int(input('Row:'))
+            u2=int(input('Col:'))
+            if board[u1-1][u2-1]==0:
+                ff=1
+            else:
+                print('Not Allowed!')
+                ff=0
+        put(u1,u2)
+        app(u1,u2,10)
+        w=wincheck()
+        if w==1:
+            flag=1
+        elif w==-1:
+            flag=1
+        
+        sum+=1
+        #comp play
+        done=0
+        while done==0 and flag!=1:
+            w2=wincheck()
+            zz=0
+            if w2==0:
+                    
+                a1=random.choice(r)
+                a2=random.choice(r)
+                if board[a1-1][a2-1]==0:
+                    cput(a1,a2)
+                    app(a1,a2,1)
+                    w=wincheck()
+                    if w==1 or w==-1:
+                        flag=1
+                        break
+                    sum+=1
+                    done=1
+                else:
+                    x=boardz()
+                    if x==0:
+                        done=2
+                    else:
+                        done=0
+            elif w2<0:
+                zz=1
+                if w2==-10:
+                    a1=1
+                    a2=random.choice(r)
+                elif w2==-9:
+                    a1=2
+                    a2=random.choice(r)
+                elif w2==-8:
+                    a1=3
+                    a2=random.choice(r)
+                elif w2==-7:
+                    a2=1
+                    a1=random.choice(r)
+                elif w2==-6:
+                    a2=2
+                    a1=random.choice(r)
+                elif w2==-5:
+                    a2=3
+                    a1=random.choice(r)
+                elif w2==-4:
+                    a1=random.choice(r)
+                    a2=random.choice(r)
+                    while a1!=a2:
+                        a1=random.choice(r)
+                        a2=random.choice(r)
+                elif w2==-3:
+                    a1=random.choice(r)
+                    a2=random.choice(r)
+                    while a1+a2!=4:
+                        a1=random.choice(r)
+                        a2=random.choice(r)
+            else:
+                zz=1    
+                if w2==4:
+                    a1=1
+                    a2=random.choice(r)
+                elif w2==5:
+                    a1=2
+                    a2=random.choice(r)
+                elif w2==6:
+                    a1=3
+                    a2=random.choice(r)
+                elif w2==7:
+                    a2=1
+                    a1=random.choice(r)
+                elif w2==8:
+                    a2=2
+                    a1=random.choice(r)
+                elif w2==9:
+                    a2=3
+                    a1=random.choice(r)
+                elif w2==10:
+                    a1=random.choice(r)
+                    a2=random.choice(r)
+                    while a1!=a2:
+                        a1=random.choice(r)
+                        a2=random.choice(r)
+                elif w2==11:
+                    a1=random.choice(r)
+                    a2=random.choice(r)
+                    while a1+a2!=4:
+                        a1=random.choice(r)
+                        a2=random.choice(r)
+            if zz==1:
+                if board[a1-1][a2-1]==0:
+                    cput(a1,a2)
+                    app(a1,a2,1)
+                    w=wincheck()
+                    if w==1 or w==-1:
+                        flag=1
+                        break
+                    sum+=1
+                    done=1
+                else:
+                    x=boardz()
+                    if x==0:
+                        done=2
+                    else:
+                        done=0
+        print('-----------------------------------------')
+        display()
+        print('-----------------------------------------')
+    if w==1:
+        print("You Win!")
+    elif w==-1:
+        print("Computer Wins!")
+    else:
+        print("Match Draw")
+    p=int(input('To play again press 1, to exit press 0:'))
