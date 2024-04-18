@@ -110,12 +110,15 @@ while p!=0:
                     if xsum(j)==3:
                         uwin=0
                         cwin=1
+                        break
                     elif xsum(j)==30:
                         uwin=0
                         cwin=1
+                        break
                     elif xsum(j)==2 and xsum(j)!=12:
                         uwin=b-10
                         cwin=0
+                        break
                     else:
                         uwin=4+a
                         cwin=0
