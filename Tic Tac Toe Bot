@@ -1,7 +1,14 @@
 #Making Tic Tac Toe playing bot:
 import random as random
+import pandas as pd
 p=1
+wincount=[]
+losscount=[]
+drawcount=[]
+matches=[]
+aaa=0
 while p!=0:
+    aaa+=1
     r1,r2,r3,c1,c2,c3,d1,d2=[[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]]
     l2=[r1,r2,r3,c1,c2,c3,d1,d2]
     board=[[0,0,0],[0,0,0],[0,0,0]]
@@ -260,8 +267,33 @@ while p!=0:
         print('-----------------------------------------')
     if w==1:
         print("You Win!")
+        wincount.append(1)
+        losscount.append(0)
+        drawcount.append(0)
+        matches.append("Match"+str(aaa))
     elif w==-1:
         print("Computer Wins!")
+        wincount.append(0)
+        losscount.append(1)
+        drawcount.append(0)
+        matches.append("Match"+str(aaa))
     else:
         print("Match Draw")
+        wincount.append(0)
+        losscount.append(0)
+        drawcount.append(1)
+        matches.append("Match"+str(aaa))
     p=int(input('To play again press 1, to exit press 0:'))
+print('------------------------------------------------')
+print('Score Board:')
+data={
+    "Match ID":matches,
+    "Won":wincount,
+    "Lost":losscount,
+    "Draw":drawcount
+
+}
+sb=pd.DataFrame(data)
+print(sb)
+print("Matches Won: "+str(xsum(wincount))+'/'+str(xsum(wincount)+xsum(losscount)+xsum(drawcount)))
+print('------------------------------------------------')
