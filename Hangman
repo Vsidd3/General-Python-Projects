@@ -1,0 +1,52 @@
+#Hangman
+word=str(input("Feed a word:"))
+word2=word.upper()
+l=[]
+z=[]
+flag=0
+lives=6
+t1=['__________']
+t5=['|         O']
+t3=['|        -|-']
+t4=['|        / \\']
+t2=['|          ']
+
+def disp(x):
+    for i in x:
+        for j in i:
+            print(j)
+f=-1
+fl=[[t2],[t2,t2],[t1,t2,t2,t2],[t1,t5,t2,t2],[t1,t5,t3,t2],[t1,t5,t3,t4]]
+for i in word2:
+    l.append(i)
+    z.append('_ ')
+print('Lives:',lives)
+for i in z:
+    print(i,end=' ')
+while lives!=0 and flag==0:
+    
+    a=str(input("Enter your guess:"))
+    a=a.upper()
+    if a in word2:
+        for i in range(len(word2)):
+            if word2[i]==a and z[i]=='_ ':
+                z[i]=l[i]
+                break
+        for i in z:
+            print(i,end=' ')
+        print('\n')
+    else:
+        lives-=1
+        print("Lives:",lives)
+        f+=1
+        for i in z:
+            print(i,end=' ')
+        print('\n')
+        disp(fl[f])
+
+
+    if z==l:
+        flag=1
+        print('You Win!')
+if flag==0:
+    print('You Lose!')    
