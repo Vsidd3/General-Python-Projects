@@ -31,7 +31,6 @@ while lives!=0 and flag==0:
         for i in range(len(word2)):
             if word2[i]==a and z[i]=='_ ':
                 z[i]=l[i]
-                break
         for i in z:
             print(i,end=' ')
         print('\n')
